@@ -1,0 +1,89 @@
+/* ====================================
+   1. FONT (Standart bir el yazısı fontu kullanıyoruz)
+   ==================================== */
+/* Darleston ve Resalaty Demo yerine web güvenli ve zarif bir font */
+body {
+    font-family: 'Georgia', serif; /* Varsayılan font, font yüklenmeme riskini kaldırır */
+    /* Diğer body stilleri... */
+    background-color: #e9dbc4; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; 
+    position: relative;
+}
+
+/* ====================================
+   2. YAPRAK ANİMASYONU (SAF CSS)
+   ==================================== */
+#leaf-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1; 
+    pointer-events: none; 
+}
+
+.leaf {
+    position: absolute;
+    background-color: #ecb0c4; 
+    border-radius: 0 50% 50% 50%; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    
+    /* İki animasyon aynı anda çalışır: Düşme ve Sallanma */
+    animation: fall linear infinite, sway ease-in-out infinite alternate;
+    
+    transform-origin: 50% 50%; 
+    top: -10vh; /* Ekranın yukarısından başla */
+}
+
+/* YENI: Yatay sallanma (rüzgar) efekti. Sadece yatay hareket ve hafif rotasyon içerir. */
+@keyframes sway {
+    0% { transform: translateX(0px) rotate(0deg); }
+    50% { transform: translateX(var(--sway-distance)) rotate(10deg); } /* Rastgele mesafe kadar sallan */
+    100% { transform: translateX(0px) rotate(-5deg); }
+}
+
+/* GÜNCELLENDİ: Sadece dikey düşüşü kontrol eder */
+@keyframes fall {
+    0% { top: -10vh; opacity: 0; }
+    10% { opacity: 0.8; }
+    100% { top: 110vh; opacity: 0; }
+}
+/* ====================================
+   3. METİN STİLLERİ
+   ==================================== */
+.text-overlay {
+    z-index: 10; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    position: relative;
+}
+
+.animating-text {
+    overflow: hidden; 
+    height: 0; 
+    white-space: pre; 
+    color: #FFFFFF; 
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4); 
+    transition: all 1s ease-out; 
+    opacity: 0; 
+    visibility: hidden;
+    width: fit-content; 
+}
+
+#isimler {
+    font-size: 4em; 
+    margin-bottom: 5px;
+}
+
+#tarih {
+    font-size: 2.5em; 
+}
